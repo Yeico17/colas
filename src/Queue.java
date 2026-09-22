@@ -1,4 +1,4 @@
-public class Queue {
+public class Queue implements QueueInterface {
 
     QueueNode head;
     QueueNode tail;
@@ -13,27 +13,32 @@ public class Queue {
         this.isPriorityQueue = isPriorityQueue;
     }
 
+    @Override
     public boolean isEmpty() {
         return this.head == null;
     }
 
-    public int getSize() {
+    @Override
+    public int size() {
         return this.size;
     }
 
+    @Override
     public void clear() {
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
-    public boolean enqueue(Object object) {
-        return enqueue(object, 0);
+    @Override
+    public boolean insert(Object object) {
+        return insert(object, 0);
     }
 
-    public boolean enqueue(Object object, int priority) {
+    @Override
+    public boolean insert(Object object, int prioridad) {
         try {
-            QueueNode nuevo = new QueueNode(object, priority);
+            QueueNode nuevo = new QueueNode(object, prioridad);
             if (!this.isPriorityQueue) {
                 if (this.head == null) {
                     this.head = nuevo;
@@ -69,7 +74,8 @@ public class Queue {
         }
     }
 
-    public Object dequeue() {
+    @Override
+    public Object extract() {
         if (isEmpty()) {
             System.out.println("La cola está vacía");
             return null;
@@ -91,6 +97,18 @@ public class Queue {
     }
 
     @Override
+    public boolean search(Object object) {
+        QueueNode iterador = this.head;
+        while (iterador != null) {
+            if (iterador.object.equals(object)) {
+                return true;
+            }
+            iterador = iterador.next;
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Queue{head->");
         QueueNode iterador = this.head;
@@ -108,4 +126,3 @@ public class Queue {
         return sb.toString();
     }
 }
-//xdxdxd
